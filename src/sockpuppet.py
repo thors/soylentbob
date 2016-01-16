@@ -1,7 +1,7 @@
 import argparse, socket, re, random, os, time
 from users import *
 from messages import *
-
+from picker import *
             
         
 
@@ -19,8 +19,7 @@ class sockpuppet:
         self.annoy_users=self.load_file("data/annoy_users.txt")
         self.handler = {}
         #self.handler[re.compile("^PRIVMSG " + self.args.nick + " :annoy (..*)")] = self.annoy
-        #self.handler[re.compile("^PRIVMSG " + self.args.nick + " :greet (..*)")] = self.annoy
-        print "^PRIVMSG " + self.args.nick + " :reflect (..*)"
+        #self.handler[re.compile("^PRIVMSG " + self.args.nick + " :greet (..*)")] = self.greet
         self.handler[re.compile("^PRIVMSG .*")] = self.activity
         self.handler[re.compile("^PRIVMSG " + self.args.nick + " :reflect (..*)")] = self.reflect
         self.handler[re.compile("^PING (.*)")] = self.ping
@@ -51,51 +50,6 @@ class sockpuppet:
                 lines[i]=lines[i].strip()
         return lines
         
-    def pick_random_delayed(self, filename, message):
-        if os.path.exists(filename):
-            print "Opening file " + filename
-            delayRe = re.compile("(\d\d*),(\d\d*)  *(.*)")
-            probabilityRe = re.compile("probability:(\d\d*)")
-            f = open(filename,"r")
-            lines = f.readlines()
-            if len(lines) < 1:
-                return ("",0)
-            
-            m = probabilityRe.match(lines[0])
-            probability = 50
-            if None != m:
-                probability = int(m.group(1))
-                del lines[0]
-                
-            i = random.randint(0, 100)
-            print "probability = " + str(probability) + ", i = " + str(i)
-            if i > probability:
-                print "probability = " + str(probability)
-                return ("",0)
-            
-            choice = lines[random.randint(0,len(lines)-1)]
-            choice = choice.replace("%U",message.nick)
-            
-            if random.randint(1,10) > 6:
-                choice = choice.replace("%S1",":-)").replace("%S5",":-|").replace("%S7",":-/").replace("%S9",":-(")
-            else:
-                choice = choice.replace("%S1","").replace("%S5","").replace("%S7","").replace("%S9","")
-
-            m = delayRe.match(choice)
-            ti = 0
-            if None != m:
-                print "Match: " + choice
-                ti = random.randint(int(m.group(1)),int(m.group(2)))
-                te =  m.group(3)
-            else:
-                print "No Match: " +  choice
-                ti = random.randint(3,6)
-                te =  choice
-            return (te,ti)
-        else:
-            print "Missing file " + filename
-        return ("",0)
-
     def activity(self, message, m):
         self.users.activity(message.nick)
     
@@ -105,7 +59,7 @@ class sockpuppet:
     def see_karma(self, message, m):
         i = random.randint(0,100)
         print m.group(2)+ " " + str(i)
-        (te,ti) = self.pick_random_delayed("data/" + m.group(2) + ".txt", message)
+        (te,ti) = pick_random_delayed("data/" + m.group(2) + ".txt", message)
         if len(te) > 0:
             self.enqueue("PRIVMSG " + m.group(1) + " :" + te, ti)
 

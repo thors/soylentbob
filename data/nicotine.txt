@@ -1,10 +1,7 @@
-9,20  The only valid excuse to smoke tabacco is when it is mixed with weed. What's the point of smoking that foul crap otherwise? %S9
-5,15  https://www.tobaccofreekids.org/facts_issues/toll_us/  %S9
-5,15  http://www.politifact.com/truth-o-meter/statements/2009/jun/29/george-will/claims-smoking-kills-more-people-annually-other-da/ %S9
-5,15  http://www.webmd.com/smoking-cessation/ss/slideshow-13-best-quit-smoking-tips-ever %S9
-4,8   lungcancer++ %S9
-10,20 %U: The only valid excuse to smoke tabacco is when it is mixed with weed. What's the point of smoking that foul crap otherwise? %S9
-6,15  %U: https://www.tobaccofreekids.org/facts_issues/toll_us/ %S9
-6,15  %U: http://www.politifact.com/truth-o-meter/statements/2009/jun/29/george-will/claims-smoking-kills-more-people-annually-other-da/ %S9
-6,15  %U: http://www.webmd.com/smoking-cessation/ss/slideshow-13-best-quit-smoking-tips-ever %S9
-5,8   %U: lungcancer++ %S7
+probability:80
+6,20 %UThe only valid excuse to smoke tabacco is when it is mixed with weed. What's the point of smoking that foul crap otherwise? %S9
+10,20 %UThe only valid excuse to smoke tabacco is when it is mixed with weed. What's the point of smoking that foul crap otherwise? %S9
+6,15  %Uhttps://www.tobaccofreekids.org/facts_issues/toll_us/ %S9
+6,15  %Uhttp://www.politifact.com/truth-o-meter/statements/2009/jun/29/george-will/claims-smoking-kills-more-people-annually-other-da/ %S9
+6,15  %Uhttp://www.webmd.com/smoking-cessation/ss/slideshow-13-best-quit-smoking-tips-ever %S9
+3,8   lungcancer++ %S7

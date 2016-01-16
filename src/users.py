@@ -9,18 +9,18 @@ class Users:
     def __init__(self):
         self.users = {}
         
-    def add(self, user):
-        if not user in self.users.keys():
-            self.users[user] = User()
+    def add(self, nickname):
+        if not nickname in self.users.keys():
+            self.users[nickname] = User(nickname)
             
-    def delete(self, user):
-        del self.users[user]
+    def delete(self, nickname):
+        del self.users[nickname]
 
-    def activity(self, user):
-        if user in self.users.keys():
-            self.users[user].activity = self.users[user].activity + 1
+    def activity(self, nickname):
+        if nickname in self.users.keys():
+            self.users[nickname].activity = self.users[nickname].activity + 5
         else:
-            self.add(user)
+            self.add(nickname)
             
     def tick(self):
         for k in self.users.keys():

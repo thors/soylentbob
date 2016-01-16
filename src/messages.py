@@ -21,5 +21,38 @@ class OutMessages:
             else:
                 self.sock.send(self.messages[i].message)
                 del self.messages[i] 
-            
 
+class Message:
+    def __init__(self, msg):
+        self.user = ""
+        self.nick = ""
+        self.hostname = ""
+        self.server = ""
+        self.message = ""
+        self._parse(msg)
+        self.dump()
+
+    def dump(self):
+        print "nick : " + self.nick
+        print "user : " + self.user
+        print "hostname : " + self.hostname
+        print "server : " + self.server
+        print "message : " + self.message
+        
+    def _parse(self, msg):
+        if msg.find(":") == 0 and msg.find(" ") > 0:
+            #There is a prefix present (usually is...)
+            prefix = msg[1:msg.find(" ")]
+            if prefix.find("@") > 0:
+                self.hostname = prefix[prefix.find("@") + 1:]
+                prefix = prefix[:prefix.find("@")]
+            if prefix.find("!") > 0:
+                self.user = prefix[prefix.find("!") + 1:]
+                prefix = prefix[:prefix.find("!")]
+            if prefix.find(".") > 0:
+                self.server = prefix
+            else:
+                self.nick = prefix
+            self.message = msg[msg.find(" ") + 1:]
+        else:
+            self.message = msg
